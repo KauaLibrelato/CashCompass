@@ -1,15 +1,15 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import ToggleButton from 'react-native-toggle-element';
 import {useTheme} from 'styled-components';
-import {storage} from '../../utils';
+import {ThemeContext, ThemeType} from '../../theme/theme';
 import * as S from './ConfigurtionsStyles';
 import {toggleButtonProps} from './utils/constants';
 import {handleToggle} from './utils/functions';
 
 export function Configurations() {
-  const theme = useTheme();
-  const themeValue = storage.getBoolean('isDarkTheme');
-  const [toggleValue, setToggleValue] = useState(themeValue ?? false);
+  const styledTheme = useTheme();
+  const {toggleTheme, theme} = useContext(ThemeContext);
+  const [toggleValue, setToggleValue] = useState(theme === ThemeType.dark);
 
   return (
     <S.Container>
@@ -28,9 +28,9 @@ export function Configurations() {
           <ToggleButton
             value={toggleValue}
             onPress={() =>
-              handleToggle(toggleValue, setToggleValue)
+              handleToggle(toggleValue, setToggleValue, toggleTheme)
             }
-            {...toggleButtonProps(theme)}
+            {...toggleButtonProps(styledTheme)}
           />
         </S.ThemeSelectorContainer>
       </S.Content>

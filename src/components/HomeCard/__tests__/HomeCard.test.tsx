@@ -10,52 +10,70 @@ import {HomeCard} from '../HomeCard';
 const isDarkTheme = storage.getBoolean('isDarkTheme');
 
 describe('HomeCard', () => {
-  it('if passed props show the props and if currencyDolar icon is showing ', () => {
-    const {getByText, getByTestId} = render(
-      <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
-        <HomeCard
-          amount={'1000'}
-          title={'Total'}
-          lastTransaction={new Date()}
-          type={'total'}
-          id={1}
-        />
-      </ThemeProvider>,
-    );
+  describe('if passed x props and if passed currencyDolar icon, show the component', () => {
+    it('if passed total props show the component', () => {
+      const {getByText, getByTestId} = render(
+        <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+          <HomeCard
+            amount={'1000'}
+            title={'Total'}
+            lastTransaction={new Date()}
+            type={'total'}
+            id={1}
+          />
+        </ThemeProvider>,
+      );
 
-    expect(getByTestId('currencyDolarIcon')).toBeTruthy();
-    expect(getByText('Total')).toBeTruthy();
-  });
+      expect(getByTestId('currencyDolarIcon')).toBeTruthy();
+      expect(getByText('Total')).toBeTruthy();
+    });
 
-  it('if passed props show the props and if currencyDolar icon is showing ', () => {
-    const {getByText} = render(
-      <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
-        <HomeCard
-          amount={null}
-          title={'SAÍDAS'}
-          lastTransaction={null}
-          type={'exits'}
-          id={2}
-        />
-      </ThemeProvider>,
-    );
+    it('if passed exits props show the component', () => {
+      const {getByText} = render(
+        <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+          <HomeCard
+            amount={null}
+            title={'SAÍDAS'}
+            lastTransaction={null}
+            type={'exits'}
+            id={2}
+          />
+        </ThemeProvider>,
+      );
 
-    expect(getByText('SAÍDAS')).toBeTruthy();
-  });
+      expect(getByText('SAÍDAS')).toBeTruthy();
+    });
 
-  it('if passed props show the props and if currencyDolar icon is showing ', () => {
-    const {getByText} = render(
-      <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
-        <HomeCard
-          amount={'1000'}
-          title={'Balanço'}
-          lastTransaction={new Date()}
-          type={'inputs'}
-          id={1}
-        />
-      </ThemeProvider>,
-    );
+    it('if passed inputs props show the component', () => {
+      const {getByText} = render(
+        <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+          <HomeCard
+            amount={'1000'}
+            title={'Balanço'}
+            lastTransaction={new Date()}
+            type={'inputs'}
+            id={1}
+          />
+        </ThemeProvider>,
+      );
 
-    expect(getByText('Balanço')).toBeTruthy();
+      expect(getByText('Balanço')).toBeTruthy();
+    });
+
+    it('if not passed type prop show the component', () => {
+      const {getByText} = render(
+        <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+          <HomeCard
+            amount={'1000'}
+            title={'Balanço'}
+            lastTransaction={new Date()}
+            type=""
+            id={1}
+          />
+        </ThemeProvider>,
+      );
+
+      expect(getByText('Balanço')).toBeTruthy();
+    });
   });
 });

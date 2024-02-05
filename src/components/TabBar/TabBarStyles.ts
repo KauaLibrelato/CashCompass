@@ -1,18 +1,20 @@
 import {Platform, StyleSheet} from 'react-native';
 import styled from 'styled-components/native';
+import {ThemeType} from '../../theme/theme';
 
 export const Container = styled.View`
   justify-content: center;
   align-items: center;
 `;
 
-export const Content = styled.View`
+export const Content = styled.View<{theme: ThemeType}>`
   margin-bottom: ${Platform.OS === 'ios' ? 38 : 24}px;
   position: absolute;
   justify-content: center;
   align-items: center;
   bottom: 0;
-  background-color: ${({theme}) => theme.colors.background};
+  background-color: ${props =>
+    props.theme === ThemeType.dark ? '#121212' : '#FFFFFF'};
   flex-direction: row;
   border-radius: 99px;
   gap: 8px;
@@ -43,7 +45,6 @@ export const viewStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     bottom: 0,
-    backgroundColor: `#fff`,
     flexDirection: 'row',
     borderRadius: 99,
     gap: 8,

@@ -10,11 +10,21 @@ import {TransactionCard} from '../TransactionCard';
 const isDarkTheme = storage.getBoolean('isDarkTheme');
 
 describe('TransactionCard', () => {
-  it('should render TransactionCard component correctly', () => {
-    render(
-      <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
-        <TransactionCard />
-      </ThemeProvider>,
-    );
+  describe('if passed x props, show the component', () => {
+    it('if passed inputs type props, show the component', () => {
+      render(
+        <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+          <TransactionCard type="inputs" />
+        </ThemeProvider>,
+      );
+    });
+
+    it('if passed exits type props, show the component', () => {
+      render(
+        <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+          <TransactionCard type="exits" />
+        </ThemeProvider>,
+      );
+    });
   });
 });

@@ -42,7 +42,7 @@ export const HeaderContainer = styled.View`
 `;
 
 export const IconContainer = styled.View.attrs({
-  testID: "currencyDolarIcon"
+  testID: 'currencyDolarIcon',
 })``;
 
 export const Type = styled.Text<TypeProps>`
