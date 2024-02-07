@@ -1,22 +1,34 @@
-import React, {useContext} from 'react';
-import {View} from 'react-native';
-import {ThemeContext, ThemeType} from '../../theme/theme';
+import React, {useContext, useEffect, useState} from 'react';
+import {Animated} from 'react-native';
+import {ThemeContext} from '../../theme/theme';
 import * as S from './TabBarStyles';
 import {TabBarButton} from './utils';
 import {ITabBar} from './utils/types';
 
 export function TabBar({state, descriptors, navigation}: ITabBar) {
   const {theme} = useContext(ThemeContext);
+  const [animation] = useState(new Animated.Value(0));
+
+  useEffect(() => {
+    Animated.timing(animation, {
+      toValue: theme === 'light' ? 0 : 1,
+      duration: 500,
+      useNativeDriver: false,
+    }).start();
+  }, [theme]);
+
+  const backgroundColor = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['#FFFFFF', '#121212'],
+  });
 
   return (
     <S.Container>
-      <View
+      <Animated.View
         style={[
           S.viewStyles.contanerView,
           {
-            backgroundColor: `${
-              theme === ThemeType.dark ? '#121212' : '#FFFFFF'
-            }`,
+            backgroundColor,
           },
         ]}>
         {state.routes.map(
@@ -30,7 +42,7 @@ export function TabBar({state, descriptors, navigation}: ITabBar) {
             />
           ),
         )}
-      </View>
+      </Animated.View>
     </S.Container>
   );
 }

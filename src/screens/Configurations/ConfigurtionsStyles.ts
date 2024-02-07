@@ -1,10 +1,10 @@
+import {Animated} from 'react-native';
 import styled from 'styled-components/native';
 import {fonts} from '../../theme/fonts';
 
-export const Container = styled.View`
+export const Container = styled(Animated.View)`
   flex: 1;
-  padding: 24px 16px;
-  background-color: ${({theme}) => theme.colors.background};
+  padding: 16px;
 `;
 
 export const Header = styled.View`
@@ -22,10 +22,9 @@ export const NameContainer = styled.View`
   margin-top: 8px;
 `;
 
-export const UserName = styled.Text`
-  font-size: 24px;
-  font-family: ${fonts.bold};
-  color: ${({theme}) => theme.colors.text};
+export const UserName = styled(Animated.Text)`
+  font-size: 20px;
+  font-weight: bold;
 `;
 
 export const Content = styled.View`
@@ -42,15 +41,13 @@ export const ThemeSelectorTexts = styled.View`
   flex-direction: row;
 `;
 
-export const ThemeSelectorTextMode = styled.Text`
+export const ThemeSelectorTextMode = styled(Animated.Text)`
   font-size: 16px;
   font-family: ${fonts.regular};
-  color: ${({theme}) => theme.colors.text};
 `;
 
-export const ThemeSelectorTextModeName = styled.Text`
+export const ThemeSelectorTextModeName = styled(Animated.Text)`
   font-size: 16px;
   font-weight: bold;
-  color: ${({theme}) => theme.colors.text};
   margin-left: 4px;
 `;

@@ -12,6 +12,13 @@ export const Header = styled.View`
   align-items: center;
 `;
 
+export const DrawerMenuButton = styled.TouchableOpacity.attrs({
+  activeOpacity: 0.7,
+})`
+  padding: 8px;
+  margin-left: -8px;
+`;
+
 export const Photo = styled.Image`
   width: 48px;
   height: 48px;
@@ -30,7 +37,7 @@ export const GreetingText = styled.Text`
 
 export const UserName = styled.Text`
   font-size: 16px;
-  font-family: ${fonts.bold};
+  font-weight: bold;
   color: ${({theme}) => theme.colors.text};
 `;
 
@@ -39,6 +46,21 @@ export const Content = styled.View`
 `;
 
 export const CardsContainer = styled.View``;
+
+export const PaginationContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const PaginationDot = styled.View<{active?: boolean}>`
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background-color: ${({theme, active}) =>
+    active ? theme.colors.primary : theme.colors.text};
+  margin-right: 8px;
+`;
 
 export const SwitchContainer = styled.View`
   margin: 24px 0;

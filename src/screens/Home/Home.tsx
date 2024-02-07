@@ -1,5 +1,9 @@
+import {DrawerNavigationProp} from '@react-navigation/drawer';
+import {useNavigation} from '@react-navigation/native';
+import * as Icon from 'phosphor-react-native';
 import React, {useState} from 'react';
-import {FlatList, ListRenderItem} from 'react-native';
+import {Dimensions} from 'react-native';
+import Carousel from 'react-native-reanimated-carousel';
 import SwitchSelector from 'react-native-switch-selector';
 import {useTheme} from 'styled-components';
 import {HomeCard, TransactionCard} from '../../components';
@@ -10,6 +14,8 @@ import {setSwitchProps, switchOptions} from './utils';
 export function Home() {
   const theme = useTheme();
   const [switchValue, setSwitchValue] = useState(switchOptions[0].value);
+  const [currentPage, setCurrentPage] = useState(0);
+  const navigation = useNavigation<DrawerNavigationProp<any>>();
 
   const data = [
     {
@@ -45,29 +51,39 @@ export function Home() {
     textColor: theme.colors.text,
     buttonColor: theme.colors.primary,
   };
-
-  const renderItem: ListRenderItem<IHomeCard> = ({item}) => {
-    return <HomeCard {...item} />;
-  };
+  const width = Dimensions.get('window').width;
 
   return (
     <S.Container>
       <S.Header>
-        <S.Photo source={{uri: 'https://github.com/KauaLibrelato.png'}} />
+        <S.DrawerMenuButton onPress={() => navigation.openDrawer()}>
+          <Icon.List size={24} color={theme.colors.text} weight="bold" />
+        </S.DrawerMenuButton>
         <S.GreetingContainer>
           <S.GreetingText>Olá,</S.GreetingText>
-          <S.UserName>Kauã Librelato</S.UserName>
+          <S.UserName>Bem-vindo ao Cash Compass</S.UserName>
         </S.GreetingContainer>
       </S.Header>
       <S.Content>
         <S.CardsContainer>
-          <FlatList
+          <Carousel
+            width={width}
+            height={120}
+            loop={false}
             data={data as IHomeCard[]}
-            keyExtractor={item => String(item.id)}
-            renderItem={renderItem}
-            horizontal
-            showsHorizontalScrollIndicator={false}
+            renderItem={({item}) => <HomeCard {...item} />}
+            onScrollEnd={index => setCurrentPage(index)}
           />
+          <S.PaginationContainer>
+            {data.map((_, index) => {
+              return (
+                <S.PaginationDot
+                  key={String(index)}
+                  active={index === currentPage}
+                />
+              );
+            })}
+          </S.PaginationContainer>
         </S.CardsContainer>
 
         <S.SwitchContainer>
@@ -79,7 +95,7 @@ export function Home() {
         </S.SwitchContainer>
 
         <S.TransactionsContainer>
-          <TransactionCard />
+          <TransactionCard type="inputs" />
         </S.TransactionsContainer>
       </S.Content>
     </S.Container>

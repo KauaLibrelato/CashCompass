@@ -1,4 +1,4 @@
-package com.aplicativopadrao
+package com.cashcompass
 
 import android.app.Application
 import com.facebook.react.PackageList
