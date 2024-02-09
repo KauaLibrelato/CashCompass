@@ -1,26 +1,25 @@
 import React from 'react';
 import {Controller, FieldValues, UseControllerProps} from 'react-hook-form';
 import {TextInputProps} from 'react-native';
-import {Input} from './Input/Input';
+import {PickerSelect} from './PickerSelect/PickerSelect';
 
-export function ControlledTextInput<FormType extends FieldValues>({
+export function ControlledSelect<FormType extends FieldValues>({
   control,
   name,
   rules,
   label,
-  ...textInputProps
+  items,
 }: UseControllerProps<FormType> &
-  TextInputProps & {label?: string; formatValue?: (value: string) => string}) {
+  TextInputProps & {label?: string; items: {label: string; value: string}[]}) {
   return (
     <Controller
       control={control}
       render={({field, fieldState}) => (
-        <Input
-          {...textInputProps}
+        <PickerSelect
           label={label}
-          name={name}
+          items={items}
+          onChange={field.onChange}
           onBlur={field.onBlur}
-          onChangeText={field.onChange}
           value={field.value}
           errorMessage={fieldState.error?.message}
         />
