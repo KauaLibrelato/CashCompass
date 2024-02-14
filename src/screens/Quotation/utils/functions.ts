@@ -15,12 +15,12 @@ export const fetchCalculation = async (
 ): Promise<number | null> => {
   try {
     setLoading(true);
-    const formattedValue = value.replace(',', '.');
+    const formattedValue = parseFloat(value.replace(',', '.'));
     const {data} = await getQuotation(of, to);
     const rate = data?.[`${of.toUpperCase()}${to.toUpperCase()}`]?.ask;
-    console.log(rate);
     if (rate) {
-      return parseFloat(formattedValue) * parseFloat(rate);
+      const result = formattedValue * parseFloat(rate);
+      return parseFloat(result.toFixed(2));
     } else {
       return null;
     }
